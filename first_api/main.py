@@ -1,10 +1,16 @@
 from fastapi import FastAPI
 
-from first_api.db import RepositorioLivros
+from first_api.db import RepositorioLivros, db
 from first_api.models import ModeloDoItem, ModeloDoItemResposta
 
 pw = RepositorioLivros()
 app = FastAPI()
+
+
+@app.on_event("shutdown")
+def shutdown():
+    if not db.is_closed():
+        db.close()
 
 
 @app.get("/livros")
