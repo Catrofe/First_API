@@ -53,4 +53,4 @@ class RepositorioLivros:
         Livros.delete_by_id(id_livro)
 
     def atualiza_livro(self, id_livro, livro) -> None:
-        Livros.update(livro).where("id" == id_livro).execute()
+        Livros.set_by_id(id_livro, livro)
