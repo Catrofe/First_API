@@ -1,23 +1,23 @@
 from fastapi import FastAPI
 from typing import List, Dict, Any, Optional
-from db import AlteraDB
+from db import RepositorioLivros
 from models import ModeloDoItem, ModeloDoItemResposta
 
-pw = AlteraDB()
+pw = RepositorioLivros()
 app = FastAPI()
 
-@app.get("/obras")
+@app.get("/livros")
 def index():
     return pw.livros_cadastrados()
 
-@app.post("/obras/", response_model=ModeloDoItemResposta, status_code=201)
-def cadastra_obra(item_a_inserir: ModeloDoItem):
-    return pw.inseri_livros(item_a_inserir.dict())
+@app.post("/livros/", response_model=ModeloDoItemResposta, status_code=201)
+def cadastra_livro(item_a_inserir: ModeloDoItem):
+    return pw.insere_livro(item_a_inserir.dict())
 
-@app.put("/obras-att/{id_do_livro}", response_model=ModeloDoItemResposta)
-def atualizar_obra(id_do_livro, obra: ModeloDoItem):
+@app.put("/livros/{id_do_livro}", response_model=ModeloDoItemResposta)
+def atualiza_livro(id_do_livro, obra: ModeloDoItem):
     return pw.atualiza_livro(id_do_livro, obra.dict())
 
-@app.delete("/obras-del/{id_do_livro}", response_model=ModeloDoItemResposta)
-def deleta_obra(id_do_livro):
+@app.delete("/livros/{id_do_livro}", response_model=ModeloDoItemResposta)
+def deleta_livro(id_do_livro):
     return pw.deleta_livro(id_do_livro)

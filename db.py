@@ -1,11 +1,10 @@
 from peewee import *
 from playhouse.mysql_ext import MySQLConnectorDatabase
-from typing import List, Dict, Any, Optional, Union
+from typing import  Dict, Any, List
 
 db = MySQLConnectorDatabase('biblioteca_manager', host='localhost', user='root', password='')
 
 class BaseModel(Model):
-
     class Meta:
         database = db
 
@@ -15,40 +14,29 @@ class Livros(BaseModel):
     foto = CharField(null=False)
     autor = CharField(null=False)
 
-class AlteraDB:
+class RepositorioLivros:
+    # XXX Na segunda vez que rodamos a API isso quebra.
     def __init__(self):
         db.create_tables([Livros])
-        db.close()
 
-    def inseri_livros(self, livro: Dict[str, Any]):
-        db.connect()
-        db.create_tables([Livros])
-        print(livro)
-
-        livro = Livros(titulo=livro['titulo'], editora=livro['editora'], foto=livro['foto'], autor=livro['autor'])
-        livro.save()
-        db.close()
+    def insere_livro(self, livro: Dict[str, Any])->None:
+        Livros.create(titulo=livro['titulo'], editora=livro['editora'], foto=livro['foto'], autor=livro['autor'])
     
-    def livros_cadastrados(self):
-        lista_de_livros = []
+    def livros_cadastrados(self)->List[Livros]:
+        livros = []
         for livro in Livros.select():
-            lista_de_livros.append({
+            livros.append({
             'titulo': livro.titulo,
             'editora': livro.editora,
             'foto': livro.foto,
             'autor': livro.autor,
             'id': livro.id
             })
-        db.close()
-        return lista_de_livros
+        return livros
 
-    def deleta_livro(self, id_livro: int):
+    def deleta_livro(self, id_livro: int)->None:
         Livros.delete_by_id(id_livro)
         db.close()
 
-    def atualiza_livro(self,id_livro, livro):
-        # livro_encontrado = Livros.get_id(id_livro)
-        q = (Livros.update({Livros.titulo: livro['titulo'], Livros.editora: livro['editora'], Livros.foto: livro['foto'], Livros.autor: livro['autor']})
-            .where(Livros.id == id_livro))
-        q.execute()
-        db.close()
+    def atualiza_livro(self,id_livro, livro)->None:
+        Livros.update(livro).where("id" == id_livro).execute()
