@@ -16,8 +16,8 @@ class Livros(BaseModel):
 
 class RepositorioLivros:
     # XXX Na segunda vez que rodamos a API isso quebra.
-    # def __init__(self):
-    #     db.create_tables([Livros])
+    def __init__(self):
+        db.create_tables([Livros])
 
     def insere_livro(self, livro: Dict[str, Any])->None:
         Livros.create(titulo=livro['titulo'], editora=livro['editora'], foto=livro['foto'], autor=livro['autor'])
