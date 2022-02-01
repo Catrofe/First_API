@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from typing import List, Dict, Any, Optional
-from db import RepositorioLivros
-from models import ModeloDoItem, ModeloDoItemResposta
+from first_api.db import RepositorioLivros
+from first_api.models import ModeloDoItem, ModeloDoItemResposta
 
 pw = RepositorioLivros()
 app = FastAPI()
