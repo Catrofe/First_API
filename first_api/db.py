@@ -1,4 +1,4 @@
-from peewee import *
+from peewee import Model, CharField
 from playhouse.mysql_ext import MySQLConnectorDatabase
 from typing import Dict, Any, List
 

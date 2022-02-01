@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from typing import List, Dict, Any, Optional
 from first_api.db import RepositorioLivros
 from first_api.models import ModeloDoItem, ModeloDoItemResposta
 
