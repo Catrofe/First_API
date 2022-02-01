@@ -1,6 +1,7 @@
-from peewee import Model, CharField
+from typing import Any, Dict, List
+
+from peewee import CharField, Model
 from playhouse.mysql_ext import MySQLConnectorDatabase
-from typing import Dict, Any, List
 
 db = MySQLConnectorDatabase(
     "biblioteca_manager", host="localhost", user="root", password=""
