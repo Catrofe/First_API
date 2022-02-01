@@ -18,6 +18,7 @@ class Livros(BaseModel):
 class AlteraDB:
     def __init__(self):
         db.create_tables([Livros])
+        db.close()
 
     def inseri_livros(self, livro: Dict[str, Any]):
         db.connect()
@@ -38,13 +39,16 @@ class AlteraDB:
             'autor': livro.autor,
             'id': livro.id
             })
+        db.close()
         return lista_de_livros
 
     def deleta_livro(self, id_livro: int):
         Livros.delete_by_id(id_livro)
+        db.close()
 
     def atualiza_livro(self,id_livro, livro):
         # livro_encontrado = Livros.get_id(id_livro)
         q = (Livros.update({Livros.titulo: livro['titulo'], Livros.editora: livro['editora'], Livros.foto: livro['foto'], Livros.autor: livro['autor']})
             .where(Livros.id == id_livro))
         q.execute()
+        db.close()
