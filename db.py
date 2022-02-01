@@ -1,11 +1,10 @@
 from peewee import *
 from playhouse.mysql_ext import MySQLConnectorDatabase
-from typing import List, Dict, Any, Optional, Union
+from typing import  Dict, Any
 
 db = MySQLConnectorDatabase('biblioteca_manager', host='localhost', user='root', password='')
 
 class BaseModel(Model):
-
     class Meta:
         database = db
 
@@ -15,18 +14,12 @@ class Livros(BaseModel):
     foto = CharField(null=False)
     autor = CharField(null=False)
 
-class AlteraDB:
+class RepositorioLivros:
     def __init__(self):
         db.create_tables([Livros])
 
     def insere_livro(self, livro: Dict[str, Any]):
-        db.connect()
-        db.create_tables([Livros])
-        print(livro)
-
-        livro = Livros(titulo=livro['titulo'], editora=livro['editora'], foto=livro['foto'], autor=livro['autor'])
-        livro.save()
-        db.close()
+        Livros.create(titulo=livro['titulo'], editora=livro['editora'], foto=livro['foto'], autor=livro['autor'])
     
     def livros_cadastrados(self):
         lista_de_livros = []

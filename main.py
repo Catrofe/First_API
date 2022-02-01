@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 from typing import List, Dict, Any, Optional
-from db import AlteraDB
+from db import RepositorioLivros
 from models import ModeloDoItem, ModeloDoItemResposta
 
-pw = AlteraDB()
+pw = RepositorioLivros()
 app = FastAPI()
 
 @app.get("/livros")
