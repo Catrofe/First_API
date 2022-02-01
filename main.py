@@ -11,13 +11,13 @@ def index():
     return pw.livros_cadastrados()
 
 @app.post("/livros/", response_model=ModeloDoItemResposta, status_code=201)
-def cadastra_obra(item_a_inserir: ModeloDoItem):
-    return pw.inseri_livros(item_a_inserir.dict())
+def cadastra_livro(item_a_inserir: ModeloDoItem):
+    return pw.insere_livro(item_a_inserir.dict())
 
 @app.put("/livros/{id_do_livro}", response_model=ModeloDoItemResposta)
-def atualizar_obra(id_do_livro, obra: ModeloDoItem):
+def atualiza_livro(id_do_livro, obra: ModeloDoItem):
     return pw.atualiza_livro(id_do_livro, obra.dict())
 
 @app.delete("/livros/{id_do_livro}", response_model=ModeloDoItemResposta)
-def deleta_obra(id_do_livro):
+def deleta_livro(id_do_livro):
     return pw.deleta_livro(id_do_livro)

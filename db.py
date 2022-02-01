@@ -19,7 +19,7 @@ class AlteraDB:
     def __init__(self):
         db.create_tables([Livros])
 
-    def inseri_livros(self, livro: Dict[str, Any]):
+    def insere_livro(self, livro: Dict[str, Any]):
         db.connect()
         db.create_tables([Livros])
         print(livro)
