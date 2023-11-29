@@ -36,18 +36,16 @@ class RepositorioLivros:
         )
 
     def livros_cadastrados(self) -> List[Livros]:
-        livros = []
-        for livro in Livros.select():
-            livros.append(
-                {
-                    "titulo": livro.titulo,
-                    "editora": livro.editora,
-                    "foto": livro.foto,
-                    "autor": livro.autor,
-                    "id": livro.id,
-                }
-            )
-        return livros
+        return [
+            {
+                "titulo": livro.titulo,
+                "editora": livro.editora,
+                "foto": livro.foto,
+                "autor": livro.autor,
+                "id": livro.id,
+            }
+            for livro in Livros.select()
+        ]
 
     def deleta_livro(self, id_livro: int) -> None:
         Livros.delete_by_id(id_livro)
